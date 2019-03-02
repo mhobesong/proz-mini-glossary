@@ -1,9 +1,7 @@
 <?php
-define('BASEDIR', __DIR__);
-define('BASEURL', 'http://localhost/proz-mini-glossary');
 session_start();
 
-include BASEDIR.'/config.php';
+include __DIR__.'/config.php';
 
 $params = [];
 if (isset($_GET['params']))
@@ -13,7 +11,7 @@ if (isset($_GET['params']))
 
 $params = explode('/',$params);
 
-if (!isset($_SESSION['user']) && $params[0] != 'login')
+if (!isset($_SESSION['user']) && $params[0] != 'login' && $params[0] != 'oauth')
 {
 	header('location:'.BASEURL.'/login');
 	exit;
@@ -22,5 +20,9 @@ if (!isset($_SESSION['user']) && $params[0] != 'login')
 switch($params[0]){
 	case 'login':
 		include BASEDIR.'/pages/login/login.php';
+		break;
+
+	case 'oauth':
+		include BASEDIR.'/api/oauth.php';
 		break;
 }
