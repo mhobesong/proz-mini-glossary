@@ -25,4 +25,10 @@ switch($params[0]){
 	case 'oauth':
 		include BASEDIR.'/api/oauth.php';
 		break;
+	case 'glossary':
+		include BASEDIR.'/api/glossary.php';
+		break;
+	default:
+		include BASEDIR.'/pages/dashboard.php';
+
 }
