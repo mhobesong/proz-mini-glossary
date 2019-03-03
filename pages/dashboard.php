@@ -17,7 +17,7 @@ include (BASEDIR.'/functions/db.php');
 <?php
 
 foreach(getAllGlossaries() as $glossary){
-	//echo "<p>name: {$glossary['name']}</p>";
+	echo "<p><b>name</b>: {$glossary[1]}</p>";
 }
 
 ?>

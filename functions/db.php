@@ -1,8 +1,8 @@
 <?php
-function dbConnect($servername, $username, $password, $dbname)
+function dbConnect()
 {
 	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
+	$conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 	// Check connection
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
@@ -12,10 +12,10 @@ function dbConnect($servername, $username, $password, $dbname)
 }
 
 function getAllGlossaries(){
-	$connection = dbConnect($CONFIG['dbhost'], $CONFIG['dbuser'], $CONFIG['dbpass'], $CONFIG['dbname']);
-	$sql = "SELECT * FROM glossaries";
+	$connection = dbConnect();
+	$sql = "SELECT * FROM glossary";
 	$result = $connection->query($sql);
 	$connection->close();
-	return $result->fetch_assoc();
+	return $result->fetch_all();
 }
 ?>
