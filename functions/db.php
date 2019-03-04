@@ -1,21 +1,18 @@
 <?php
+/**
+* Gets db connect handle
+*
+* @return Object Connection handle
+*/
 function dbConnect()
 {
 	// Create connection
-	$conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+	$conn = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 	// Check connection
-	if ($conn->connect_error) {
+	if (!$conn) {
 		die("Connection failed: " . $conn->connect_error);
 	}
 
 	return $conn;
-}
-
-function getAllGlossaries(){
-	$connection = dbConnect();
-	$sql = "SELECT * FROM glossary";
-	$result = $connection->query($sql);
-	$connection->close();
-	return $result->fetch_all();
 }
 ?>

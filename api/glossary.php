@@ -1,17 +1,31 @@
 <?php
-include_once(BASEDIR.'/functions/db.php');
+include_once(BASEDIR.'/functions/glossary.php');
+include_once(BASEDIR.'/functions/term.php');
 
-if(isset($_POST['glossary-name'])){
-	$connection = dbConnect($CONFIG['dbhost'], $CONFIG['dbuser'], $CONFIG['dbpass'], $CONFIG['dbname']);
+if(isset($_POST['glossary-name']) && $_POST['glossary-name']){
 
-	$stmt = $connection->prepare("INSERT INTO glossary (name) VALUES (?)");
-	$stmt->bind_param("s", $name);
+	$connection = dbConnect();
+	$glossary = saveGlossary(trim($_POST['glossary-name']));
+	$terms = [];
 
-	// set parameters and execute
-	$name = $_POST['glossary-name'];
-	$stmt->execute();
-	$connection->close();
+	if (isset($_POST['terms']) && is_array($_POST['terms'])){
+		foreach ($_POST['terms'] as $term){
+			$term_ = saveTerm($term, $glossary['id']);
+			if($term_) $terms[] = $term_;
+		}
+	}
+
+	if (count($glossary)){
+		$response = new stdclass;
+		$response->code = 200;
+		$response->glossary = $glossary;
+		$response->terms = $terms;
+		echo json_encode($response);
+		exit;
+	}
 }
 
-header('location:'.BASEURL);
+$response = new stdclass;
+$response->code = 400;
+echo json_encode($response);
 ?>

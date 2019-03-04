@@ -4,4 +4,4 @@
 	  <input type="submit" id="login-form-submit-btn" class="btn btn-default" value="Sign in">
 </form>
 
-<script src="<?= BASEURL ?>/js/login.js"/></script>
+<script src="<?= BASEURL ?>/assets/js/login.js"/></script>
