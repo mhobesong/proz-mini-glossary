@@ -2,6 +2,7 @@
 session_start();
 
 include __DIR__.'/config.php';
+		$_SESSION['user'] = 'user';
 
 $params = [];
 if (isset($_GET['params']))
@@ -27,6 +28,9 @@ switch($params[0]){
 		break;
 	case 'glossary':
 		include BASEDIR.'/api/glossary.php';
+		break;
+	case 'glossaries':
+		include BASEDIR.'/api/glossaries.php';
 		break;
 	default:
 		include BASEDIR.'/pages/dashboard.php';
